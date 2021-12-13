@@ -33,7 +33,7 @@ const navMenu = [
         name: 'Your Library',
         icon: MdLibraryMusic,
         route: '/library'
-    }
+    },
 ]
 
 const Sidebar = () => {
