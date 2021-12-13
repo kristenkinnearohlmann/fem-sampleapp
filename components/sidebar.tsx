@@ -1,3 +1,4 @@
+import NextImage from 'next/image'
 import {
     Box,
     List,
@@ -19,7 +20,11 @@ import {
 const Sidebar = () => {
     return (
         <Box width="100%" height="calc(100vh - 100px)" bg="black" paddingX="5px" color="gray">
-            js
+            <Box paddingY="20px">
+                <Box width="120px" marginBottom="20px" paddingX="20px">
+
+                </Box>
+            </Box>
         </Box>
     )
 }
