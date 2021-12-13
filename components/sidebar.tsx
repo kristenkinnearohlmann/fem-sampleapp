@@ -89,8 +89,8 @@ const Sidebar = () => {
                     </List>
                 </Box>
                 <Divider color="gray.800" />
-                <Box>
-                    
+                <Box height="66%" overflowY="auto" paddingY="20px">
+                    hello
                 </Box>
             </Box>
         </Box>
