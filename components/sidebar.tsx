@@ -18,9 +18,9 @@ import {
 
 const Sidebar = () => {
     return (
-        <div>
-            Hello from sidebar
-        </div>
+        <Box width="100%" height="calc(100vh - 100px)" bg="black" paddingX="5px" color="gray">
+            js
+        </Box>
     )
 }
 
