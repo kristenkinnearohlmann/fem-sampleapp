@@ -1,4 +1,5 @@
 import NextImage from 'next/image'
+import NextLink from 'next/link'
 import {
     Box,
     List,
@@ -46,7 +47,14 @@ const Sidebar = () => {
                     <List spacing={2}>
                         {navMenu.map(menu => (
                             <ListItem paddingX="20px" fontSize="16px" key={menu.name}>
-                                <LinkBox></LinkBox>
+                                <LinkBox>
+                                    <NextLink href={menu.route} passHref>
+                                        <LinkOverlay>
+                                            <ListIcon as={menu.icon} color="white" marginRight="20px" />
+                                            {menu.name}
+                                        </LinkOverlay>
+                                    </NextLink>
+                                </LinkBox>
                             </ListItem>
                         ))}
                     </List>
