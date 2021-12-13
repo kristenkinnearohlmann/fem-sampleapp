@@ -17,6 +17,24 @@ import {
     MdFavorite
 } from 'react-icons/md'
 
+const navMenu = [
+    {
+        name: 'Home',
+        icon: MdHome,
+        route: '/'
+    },
+    {
+        name: 'Search',
+        icon: MdSearch,
+        route: '/search'
+    },
+    {
+        name: 'Your Library',
+        icon: MdLibraryMusic,
+        route: '/library'
+    }
+]
+
 const Sidebar = () => {
     return (
         <Box width="100%" height="calc(100vh - 100px)" bg="black" paddingX="5px" color="gray">
