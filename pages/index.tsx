@@ -24,21 +24,21 @@ const Home = ({ artists }) => {
           </Text>
           <Text fontSize="md">only visible to you</Text>
         </Box>
-        <Flex justify="space-between">
-          {artists.map((artist) => {
-            <Box paddingX="10px">
+        <Flex>
+          {artists.map((artist) => (
+            <Box paddingX="10px" width="20%">
               <Box bg="gray.900" borderRadius="4px" padding="15px" width="100%">
                 <Image
-                  src="https://placekitten.com/200/300"
+                  src="https://placekitten.com/300/300"
                   borderRadius="100%"
                 />
-                <Box>
-                  <Text>{artist.name}</Text>
-                  <Text>Artist</Text>
+                <Box marginTop="20px">
+                  <Text fontSize="large">{artist.name}</Text>
+                  <Text fontSize="x-small">Artist</Text>
                 </Box>
               </Box>
-            </Box>;
-          })}
+            </Box>
+          ))}
         </Flex>
       </Box>
     </GradientLayout>
