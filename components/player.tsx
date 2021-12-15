@@ -27,9 +27,11 @@ const Player = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState(0);
   const [seek, setSeek] = useState(0.0);
+  const [isSeeking, setIsSeeking] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
+  const soundRef = useRef(null);
 
   const setPlayState = (value) => {
     setPlaying(value);
@@ -43,10 +45,55 @@ const Player = ({ songs, activeSong }) => {
     setRepeat((state) => !state);
   };
 
+  const prevSong = () => {
+    setIndex((state) => {
+      return state ? state - 1 : songs.length - 1;
+    });
+  };
+
+  const nextSong = () => {
+    setIndex((state) => {
+      if (shuffle) {
+        const next = Math.floor(Math.random() * songs.length);
+        if (next === state) {
+          return nextSong();
+        }
+        return next;
+      } else {
+        return state === songs.length - 1 ? 0 : state + 1;
+      }
+    });
+  };
+
+  const onEnd = () => {
+    if (repeat) {
+      setSeek(0); // UI
+      soundRef.current.seek(0); // Howler
+    } else {
+      nextSong();
+    }
+  };
+
+  const onLoad = () => {
+    const songDuration = soundRef.current.duration();
+    setDuration(songDuration);
+  };
+
+  const onSeek = (event) => {
+    setSeek(parseFloat(event[0])); // Chakra has a array range of values, take first item
+    soundRef.current.seek(event[0]);
+  };
+
   return (
     <Box>
       <Box>
-        <ReactHowler playing={playing} src={activeSong?.url} />
+        <ReactHowler
+          playing={playing}
+          src={activeSong?.url}
+          ref={soundRef}
+          onLoad={onLoad}
+          onEnd={onEnd}
+        />
       </Box>
       <Center color="gray.600">
         <ButtonGroup>
@@ -65,6 +112,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="previous"
             fontSize="24px"
             icon={<MdSkipPrevious />}
+            onClick={prevSong}
           />
           {playing ? (
             <IconButton
@@ -93,6 +141,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="next"
             fontSize="24px"
             icon={<MdSkipNext />}
+            onClick={nextSong}
           />
           <IconButton
             outline="none"
@@ -115,8 +164,12 @@ const Player = ({ songs, activeSong }) => {
               aria-label={["min", "max"]}
               step={0.1}
               min={0}
-              max={100}
+              max={duration ? duration.toFixed(2) : 0}
               id="player-range"
+              onChange={onSeek}
+              value={[seek]}
+              onChangeStart={() => setIsSeeking(true)}
+              onChangeEnd={() => setIsSeeking(false)}
             >
               <RangeSliderTrack bg="gray.800">
                 <RangeSliderFilledTrack bg="gray.600" />
