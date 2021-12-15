@@ -94,6 +94,9 @@ const Player = () => {
               <RangeSliderThumb index={0} />
             </RangeSlider>
           </Box>
+          <Box width="10%" textAlign="right">
+            <Text fontSize="xs">10:00</Text>
+          </Box>
         </Flex>
       </Box>
     </Box>
